@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pokédex - Todos los Pokémon">
+    <title>Pokédex - PetShop</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .pokemon-card {
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .pokemon-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .pokemon-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+
+        .pokemon-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.2rem;
+            text-transform: capitalize;
+        }
+
+        .type-normal { background-color: #A8A878; color: white; }
+        .type-fire { background-color: #F08030; color: white; }
+        .type-water { background-color: #6890F0; color: white; }
+        .type-electric { background-color: #F8D030; color: #333; }
+        .type-grass { background-color: #78C850; color: white; }
+        .type-ice { background-color: #98D8D8; color: #333; }
+        .type-fighting { background-color: #C03028; color: white; }
+        .type-poison { background-color: #A040A0; color: white; }
+        .type-ground { background-color: #E0C068; color: #333; }
+        .type-flying { background-color: #A890F0; color: white; }
+        .type-psychic { background-color: #F85888; color: white; }
+        .type-bug { background-color: #A8B820; color: white; }
+        .type-rock { background-color: #B8A038; color: white; }
+        .type-ghost { background-color: #705898; color: white; }
+        .type-dragon { background-color: #7038F8; color: white; }
+        .type-dark { background-color: #705848; color: white; }
+        .type-steel { background-color: #B8B8D0; color: #333; }
+        .type-fairy { background-color: #EE99AC; color: white; }
+
+        .stat-bar {
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 20px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-fill {
+            background: linear-gradient(90deg, var(--color-hoja), var(--color-hoja-claro));
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .pokemon-id {
+            color: #888;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-wood sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="bi bi-shop"></i> PetShop
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#productos">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="pokemon.html">Pokédex</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center py-5">
+                <div class="col-lg-12 text-center">
+                    <h1 class="display-3 fw-bold mb-3">Pokédex</h1>
+                    <p class="lead mb-4">Explora todos los Pokémon con sus características y estadísticas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="py-4 bg-light">
+        <div class="container">
+            <div class="search-container">
+                <div class="input-group">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Buscar Pokémon por nombre o número...">
+                    <button class="btn btn-leaf" type="button" id="searchBtn">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-outline-dark me-2" id="loadMoreBtn">
+                    <i class="bi bi-arrow-down-circle"></i> Cargar más
+                </button>
+                <button class="btn btn-outline-dark" id="resetBtn">
+                    <i class="bi bi-arrow-clockwise"></i> Reiniciar
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pokemon Grid -->
+    <section class="py-5">
+        <div class="container">
+            <div id="loadingSpinner" class="loading-spinner">
+                <div class="spinner-border text-leaf" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+                <p class="mt-3">Cargando Pokémon...</p>
+            </div>
+            <div id="pokemonContainer" class="row g-4"></div>
+        </div>
+    </section>
+
+    <!-- Modal para detalles del Pokémon -->
+    <div class="modal fade" id="pokemonModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-wood text-white">
+                    <h5 class="modal-title" id="modalPokemonName"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                    <!-- Contenido dinámico -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-wood text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 PetShop - Pokédex. Todos los derechos reservados.</p>
+            <p class="small mb-0">Datos obtenidos de <a href="https://pokeapi.co/" class="text-white" target="_blank">PokéAPI</a></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Pokemon JS -->
+    <script>
+        let currentOffset = 0;
+        const limit = 20;
+        let allPokemon = [];
+
+        // Cargar Pokémon al iniciar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPokemon();
+            
+            // Event listeners
+            document.getElementById('loadMoreBtn').addEventListener('click', loadPokemon);
+            document.getElementById('resetBtn').addEventListener('click', resetPokemon);
+            document.getElementById('searchBtn').addEventListener('click', searchPokemon);
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') searchPokemon();
+            });
+        });
+
+        async function loadPokemon() {
+            const spinner = document.getElementById('loadingSpinner');
+            const container = document.getElementById('pokemonContainer');
+            
+            spinner.style.display = 'block';
+
+            try {
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`);
+                const data = await response.json();
+
+                // Obtener detalles de cada Pokémon
+                const pokemonPromises = data.results.map(pokemon => 
+                    fetch(pokemon.url).then(res => res.json())
+                );
+
+                const pokemonDetails = await Promise.all(pokemonPromises);
+                allPokemon = [...allPokemon, ...pokemonDetails];
+
+                displayPokemon(pokemonDetails, container, false);
+                currentOffset += limit;
+
+            } catch (error) {
+                console.error('Error al cargar Pokémon:', error);
+                container.innerHTML = '<div class="col-12 text-center"><p class="text-danger">Error al cargar los Pokémon. Por favor, intenta nuevamente.</p></div>';
+            } finally {
+                spinner.style.display = 'none';
+            }
+        }
+
+        function displayPokemon(pokemonList, container, clearContent = false) {
+            if (clearContent) {
+                container.innerHTML = '';
+            }
+
+            pokemonList.forEach(pokemon => {
+                const card = createPokemonCard(pokemon);
+                container.innerHTML += card;
+            });
+
+            // Añadir event listeners a las cartas
+            document.querySelectorAll('.pokemon-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const pokemonId = this.dataset.pokemonId;
+                    const pokemon = allPokemon.find(p => p.id == pokemonId);
+                    if (pokemon) showPokemonDetails(pokemon);
+                });
+            });
+        }
+
+        function createPokemonCard(pokemon) {
+            const types = pokemon.types.map(type => 
+                `<span class="pokemon-type type-${type.type.name}">${type.type.name}</span>`
+            ).join('');
+
+            return `
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card pokemon-card h-100" data-pokemon-id="${pokemon.id}" style="cursor: pointer;">
+                        <div class="card-body text-center">
+                            <p class="pokemon-id">#${String(pokemon.id).padStart(3, '0')}</p>
+                            <img src="${pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default}" 
+                                 alt="${pokemon.name}" class="pokemon-image mb-3">
+                            <h5 class="card-title text-capitalize">${pokemon.name}</h5>
+                            <div class="mb-2">${types}</div>
+                            <div class="mt-3">
+                                <small class="text-muted">
+                                    <i class="bi bi-heart-fill text-danger"></i> ${pokemon.stats[0].base_stat} HP
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showPokemonDetails(pokemon) {
+            const modal = new bootstrap.Modal(document.getElementById('pokemonModal'));
+            const modalTitle = document.getElementById('modalPokemonName');
+            const modalContent = document.getElementById('modalContent');
+
+            modalTitle.textContent = `${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} #${String(pokemon.id).padStart(3, '0')}`;
+
+            const types = pokemon.types.map(type => 
+                `<span class="pokemon-type type-${type.type.name}">${type.type.name}</span>`
+            ).join('');
+
+            const abilities = pokemon.abilities.map(ability => 
+                `<span class="badge bg-secondary me-1">${ability.ability.name}</span>`
+            ).join('');
+
+            const stats = pokemon.stats.map(stat => {
+                const percentage = (stat.base_stat / 255) * 100;
+                return `
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between mb-1">
+                            <small class="text-capitalize">${stat.stat.name}</small>
+                            <small>${stat.base_stat}</small>
+                        </div>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            modalContent.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <img src="${pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default}" 
+                             alt="${pokemon.name}" class="img-fluid mb-3" style="max-width: 200px;">
+                        <div>${types}</div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-wood">Información Básica</h6>
+                        <p><strong>Altura:</strong> ${pokemon.height / 10} m</p>
+                        <p><strong>Peso:</strong> ${pokemon.weight / 10} kg</p>
+                        <p><strong>Habilidades:</strong> ${abilities}</p>
+                        
+                        <h6 class="text-wood mt-4">Estadísticas</h6>
+                        ${stats}
+                    </div>
+                </div>
+            `;
+
+            modal.show();
+        }
+
+        async function searchPokemon() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const container = document.getElementById('pokemonContainer');
+
+            if (!searchTerm) {
+                displayPokemon(allPokemon, container, true);
+                return;
+            }
+
+            const spinner = document.getElementById('loadingSpinner');
+            spinner.style.display = 'block';
+
+            try {
+                // Buscar en los Pokémon ya cargados
+                const filtered = allPokemon.filter(p => 
+                    p.name.includes(searchTerm) || 
+                    p.id.toString() === searchTerm
+                );
+
+                if (filtered.length > 0) {
+                    displayPokemon(filtered, container, true);
+                } else {
+                    // Intentar buscar directamente en la API
+                    try {
+                        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
+                        const pokemon = await response.json();
+                        displayPokemon([pokemon], container, true);
+                    } catch {
+                        container.innerHTML = '<div class="col-12 text-center"><p class="text-muted">No se encontró ningún Pokémon con ese nombre o número.</p></div>';
+                    }
+                }
+            } catch (error) {
+                console.error('Error en la búsqueda:', error);
+                container.innerHTML = '<div class="col-12 text-center"><p class="text-danger">Error en la búsqueda.</p></div>';
+            } finally {
+                spinner.style.display = 'none';
+            }
+        }
+
+        function resetPokemon() {
+            currentOffset = 0;
+            allPokemon = [];
+            document.getElementById('pokemonContainer').innerHTML = '';
+            document.getElementById('searchInput').value = '';
+            loadPokemon();
+        }
+    </script>
+</body>
+
+</html>
