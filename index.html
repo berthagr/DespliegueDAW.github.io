@@ -1,44 +1,419 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Descripción de tu proyecto">
-    <meta name="author" content="Tu nombre">
-    <title>Mi Proyecto</title>
+    <meta name="description" content="Tienda de mascotas - Todo lo que tu mascota necesita">
+    <meta name="author" content="PetShop">
+    <title>PetShop - Tienda de Mascotas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-    <header>
-        <h1>Bienvenido a mi proyecto</h1>
-        <nav>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#acerca">Acerca de</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-wood sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#inicio">
+                <i class="bi bi-shop"></i> PetShop
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#productos">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#cuidados">Cuidados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <main>
-        <section id="inicio">
-            <h2>Inicio</h2>
-            <p>Contenido de la página principal.</p>
-        </section>
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-75">
+                <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
+                    <h1 class="display-3 fw-bold mb-4">Todo para tu Mascota</h1>
+                    <p class="lead mb-4">Los mejores productos y servicios para el cuidado y bienestar de tus compañeros
+                        peludos.</p>
+                    <div class="d-grid d-sm-flex gap-2 justify-content-center justify-content-lg-start">
+                        <a href="#productos" class="btn btn-leaf btn-lg">Ver Productos</a>
+                        <a href="#contacto" class="btn btn-outline-dark btn-lg">Contáctanos</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center mt-4 mt-lg-0">
+                    <i class="bi bi-heart-fill text-leaf hero-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="acerca">
-            <h2>Acerca de</h2>
-            <p>Información sobre el proyecto.</p>
-        </section>
+    <!-- Servicios Section -->
+    <section id="servicios" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Nuestros Servicios</h2>
 
-        <section id="contacto">
-            <h2>Contacto</h2>
-            <p>Información de contacto.</p>
-        </section>
-    </main>
+            <!-- Servicio 1: Imagen - Texto -->
+            <div class="row align-items-center mb-5 pb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div
+                        class="service-image-placeholder bg-leaf-light d-flex align-items-center justify-content-center rounded">
+                        <i class="bi bi-scissors text-white" style="font-size: 8rem;"></i>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="text-wood mb-3">Peluquería Canina</h3>
+                    <p>Ofrecemos servicios profesionales de peluquería para perros de todas las razas. Nuestro equipo
+                        experto cuida cada detalle para que tu mascota luzca radiante.</p>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Corte y peinado profesional</li>
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Baño con productos premium</li>
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Limpieza de oídos y uñas</li>
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Tratamientos especiales</li>
+                    </ul>
+                </div>
+            </div>
 
-    <footer>
-        <p>&copy; 2025 Mi Proyecto. Todos los derechos reservados.</p>
+            <!-- Servicio 2: Texto - Imagen -->
+            <div class="row align-items-center mb-5 pb-5">
+                <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0">
+                    <div
+                        class="service-image-placeholder bg-wood-light d-flex align-items-center justify-content-center rounded">
+                        <i class="bi bi-hospital text-white" style="font-size: 8rem;"></i>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <h3 class="text-wood mb-3">Veterinaria Integral</h3>
+                    <p>Contamos con veterinarios certificados que brindan atención médica completa para el bienestar de
+                        tu mascota. Desde consultas preventivas hasta tratamientos especializados.</p>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Consultas generales y urgencias</li>
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Vacunación y desparasitación</li>
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Cirugías y hospitalización</li>
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Análisis de laboratorio</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Servicio 3: Imagen - Texto -->
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div
+                        class="service-image-placeholder bg-leaf-light d-flex align-items-center justify-content-center rounded">
+                        <i class="bi bi-house-heart text-white" style="font-size: 8rem;"></i>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="text-wood mb-3">Hotel y Guardería</h3>
+                    <p>Deja a tu mascota en las mejores manos cuando necesites viajar o ausentarte. Nuestras
+                        instalaciones ofrecen comodidad, seguridad y diversión.</p>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Instalaciones amplias y seguras</li>
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Atención personalizada 24/7</li>
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Actividades recreativas</li>
+                        <li><i class="bi bi-check-circle-fill text-leaf me-2"></i> Alimentación según necesidades</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos Section -->
+    <section id="productos" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Productos Destacados</h2>
+
+            <!-- Producto 1: Texto - Gráfico -->
+            <div class="row align-items-center mb-5 pb-5">
+                <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0">
+                    <div class="stats-card p-4 bg-light rounded">
+                        <h4 class="text-wood mb-4">Alimentos Premium</h4>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Nutrición Completa</span>
+                                <span class="text-leaf fw-bold">95%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-leaf" role="progressbar" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Ingredientes Naturales</span>
+                                <span class="text-leaf fw-bold">90%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-leaf" role="progressbar" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Sin Conservantes</span>
+                                <span class="text-leaf fw-bold">100%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-leaf" role="progressbar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <h3 class="text-wood mb-3">Alimentación de Calidad</h3>
+                    <p>Contamos con una amplia gama de alimentos premium para perros y gatos de todas las edades.
+                        Nuestros productos están formulados con ingredientes naturales de la más alta calidad.</p>
+                    <p>Marcas reconocidas internacionalmente que garantizan la nutrición óptima de tu mascota, apoyando
+                        su salud, vitalidad y longevidad.</p>
+                    <a href="#contacto" class="btn btn-wood mt-3">Consultar Disponibilidad</a>
+                </div>
+            </div>
+
+            <!-- Producto 2: Gráfico - Texto -->
+            <div class="row align-items-center mb-5 pb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="stats-card p-4 bg-light rounded">
+                        <h4 class="text-wood mb-4">Accesorios y Juguetes</h4>
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="stat-item p-3">
+                                    <i class="bi bi-cart-check text-leaf" style="font-size: 2.5rem;"></i>
+                                    <h5 class="mt-2 mb-0">500+</h5>
+                                    <small>Productos</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item p-3">
+                                    <i class="bi bi-star-fill text-leaf" style="font-size: 2.5rem;"></i>
+                                    <h5 class="mt-2 mb-0">4.8/5</h5>
+                                    <small>Valoración</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item p-3">
+                                    <i class="bi bi-trophy-fill text-leaf" style="font-size: 2.5rem;"></i>
+                                    <h5 class="mt-2 mb-0">Top 10</h5>
+                                    <small>Marcas</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="text-wood mb-3">Todo lo que Necesitan</h3>
+                    <p>Descubre nuestra extensa colección de accesorios, juguetes, camas, correas, comederos y todo lo
+                        necesario para el confort y entretenimiento de tu mascota.</p>
+                    <p>Productos duraderos, seguros y diseñados pensando en el bienestar animal. Desde lo básico hasta
+                        los artículos más innovadores del mercado.</p>
+                    <a href="#contacto" class="btn btn-wood mt-3">Ver Catálogo</a>
+                </div>
+            </div>
+
+            <!-- Producto 3: Texto - Gráfico -->
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0">
+                    <div class="stats-card p-4 bg-light rounded">
+                        <h4 class="text-wood mb-4">Cuidado e Higiene</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center">
+                                <i class="bi bi-droplet-fill text-leaf fs-4 me-3"></i>
+                                <div>
+                                    <strong>Shampoos Especializados</strong>
+                                    <p class="mb-0 small">Para cada tipo de pelaje</p>
+                                </div>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center">
+                                <i class="bi bi-heart-pulse-fill text-leaf fs-4 me-3"></i>
+                                <div>
+                                    <strong>Antipulgas y Antiparasitarios</strong>
+                                    <p class="mb-0 small">Protección completa</p>
+                                </div>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center">
+                                <i class="bi bi-bandaid-fill text-leaf fs-4 me-3"></i>
+                                <div>
+                                    <strong>Suplementos Vitamínicos</strong>
+                                    <p class="mb-0 small">Salud y vitalidad</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <h3 class="text-wood mb-3">Higiene y Salud</h3>
+                    <p>Mantén a tu mascota limpia, sana y protegida con nuestra línea completa de productos de higiene y
+                        cuidado. Soluciones efectivas recomendadas por veterinarios.</p>
+                    <p>Desde productos básicos de limpieza hasta tratamientos especializados para el cuidado integral de
+                        la salud de tu compañero.</p>
+                    <a href="#contacto" class="btn btn-wood mt-3">Más Información</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cuidados Section -->
+    <section id="cuidados" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Consejos de Cuidado</h2>
+
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-leaf mb-3">
+                                <i class="bi bi-heart-fill" style="font-size: 3rem;"></i>
+                            </div>
+                            <h4 class="card-title text-wood">Alimentación Balanceada</h4>
+                            <p class="card-text">Una dieta equilibrada es fundamental para la salud de tu mascota.
+                                Consulta con nuestros expertos sobre las mejores opciones.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-leaf mb-3">
+                                <i class="bi bi-activity" style="font-size: 3rem;"></i>
+                            </div>
+                            <h4 class="card-title text-wood">Ejercicio Regular</h4>
+                            <p class="card-text">El ejercicio diario mantiene a tu mascota saludable y feliz. Descubre
+                                rutinas adaptadas a cada tipo de animal.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-leaf mb-3">
+                                <i class="bi bi-shield-check" style="font-size: 3rem;"></i>
+                            </div>
+                            <h4 class="card-title text-wood">Vacunación</h4>
+                            <p class="card-text">Mantén al día el calendario de vacunación de tu mascota para prevenir
+                                enfermedades y garantizar su bienestar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Contáctanos</h2>
+
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h3 class="text-wood mb-4">¿Tienes alguna pregunta?</h3>
+                    <p class="mb-4">Estamos aquí para ayudarte. Contáctanos y te responderemos lo antes posible.</p>
+
+                    <div class="contact-info">
+                        <div class="d-flex mb-3">
+                            <i class="bi bi-geo-alt-fill text-leaf fs-4 me-3"></i>
+                            <div>
+                                <strong>Dirección</strong>
+                                <p class="mb-0">Calle Principal 123, Ciudad</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <i class="bi bi-telephone-fill text-leaf fs-4 me-3"></i>
+                            <div>
+                                <strong>Teléfono</strong>
+                                <p class="mb-0">+34 123 456 789</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <i class="bi bi-envelope-fill text-leaf fs-4 me-3"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <p class="mb-0">info@petshop.com</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <i class="bi bi-clock-fill text-leaf fs-4 me-3"></i>
+                            <div>
+                                <strong>Horario</strong>
+                                <p class="mb-0">Lun - Sáb: 9:00 - 20:00</p>
+                                <p class="mb-0">Dom: 10:00 - 14:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <form class="contact-form">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="telefono">
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje</label>
+                            <textarea class="form-control" id="mensaje" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-leaf btn-lg w-100">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-wood text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5><i class="bi bi-shop"></i> PetShop</h5>
+                    <p class="small">Todo lo que tu mascota necesita en un solo lugar.</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h6>Enlaces Rápidos</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#servicios" class="text-white-50 text-decoration-none">Servicios</a></li>
+                        <li><a href="#productos" class="text-white-50 text-decoration-none">Productos</a></li>
+                        <li><a href="#cuidados" class="text-white-50 text-decoration-none">Cuidados</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>Síguenos</h6>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-3 bg-white">
+            <p class="text-center mb-0 small">&copy; 2025 PetShop. Todos los derechos reservados.</p>
+        </div>
     </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
