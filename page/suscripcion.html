@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Planes de Suscripción - PetShop">
+    <meta name="author" content="PetShop">
+    <title>Planes de Suscripción - PetShop</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Estilos específicos para la página de suscripción */
+        .subscription-header {
+            background: linear-gradient(135deg, #6B4423 0%, #4A2F1A 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .subscription-header h1 {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .subscription-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+
+        .subscription-section {
+            padding: 60px 0;
+            background-color: #FFFFFF;
+        }
+
+        .subscription-section.bg-alt {
+            background-color: #F8F9FA;
+        }
+
+        /* Toggle Annual/Monthly */
+        .billing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            width: 70px;
+            height: 35px;
+            background-color: #E0E0E0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background-color: #4A7C59;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 29px;
+            height: 29px;
+            background-color: white;
+            border-radius: 50%;
+            transition: left 0.3s ease;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            left: 38px;
+        }
+
+        .toggle-label {
+            color: #666;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-label.active {
+            color: #4A7C59;
+            font-weight: 600;
+        }
+
+        .savings-badge {
+            display: inline-block;
+            background-color: #FF6B6B;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* Tarjetas de Planes */
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            height: 100%;
+            border: 2px solid transparent;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-color: #4A7C59;
+        }
+
+        .pricing-card.featured {
+            border: 2px solid #4A7C59;
+            background: linear-gradient(135deg, rgba(74, 124, 89, 0.05) 0%, rgba(107, 68, 35, 0.05) 100%);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #4A7C59 0%, #2E5A3D 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6B4423;
+            margin-bottom: 15px;
+        }
+
+        .plan-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            min-height: 40px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #4A7C59;
+            margin-bottom: 5px;
+        }
+
+        .price-period {
+            color: #999;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list i {
+            color: #4A7C59;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .features-list.disabled i {
+            color: #CCC;
+        }
+
+        .features-list.disabled {
+            opacity: 0.5;
+        }
+
+        .btn-subscribe {
+            background-color: #4A7C59;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-subscribe:hover {
+            background-color: #2E5A3D;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 124, 89, 0.3);
+        }
+
+        .pricing-card.featured .btn-subscribe {
+            background-color: #6B4423;
+        }
+
+        .pricing-card.featured .btn-subscribe:hover {
+            background-color: #4A2F1A;
+            box-shadow: 0 4px 12px rgba(107, 68, 35, 0.3);
+        }
+
+        /* Sección de Beneficios */
+        .benefits-section {
+            padding: 60px 0;
+            background-color: #F8F9FA;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #6B4423;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #4A7C59, #6B4423);
+            border-radius: 2px;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: #4A7C59;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card h3 {
+            color: #6B4423;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+        }
+
+        .benefit-card p {
+            color: #666;
+            margin: 0;
+        }
+
+        /* Sección de Ofertas */
+        .offers-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #6B4423 0%, #4A2F1A 100%);
+            color: white;
+        }
+
+        .offers-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .offer-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .offer-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .offer-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .offer-badge {
+            background-color: #FF6B6B;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .offer-description {
+            opacity: 0.9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .offer-code {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 0.95rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px dashed rgba(255, 255, 255, 0.4);
+        }
+
+        .offer-code:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .offer-code i {
+            margin-right: 8px;
+        }
+
+        /* Sección de FAQ */
+        .faq-section {
+            padding: 60px 0;
+            background-color: #FFFFFF;
+        }
+
+        .accordion-button {
+            background-color: white;
+            color: #212529;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #F0F8F4;
+            border-color: #4A7C59;
+            color: #4A7C59;
+        }
+
+        .accordion-button:focus {
+            border-color: #4A7C59;
+            box-shadow: 0 0 0 0.25rem rgba(74, 124, 89, 0.25);
+        }
+
+        .accordion-body {
+            padding: 20px 20px;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .subscription-header h1 {
+                font-size: 2rem;
+            }
+
+            .subscription-header p {
+                font-size: 1rem;
+            }
+
+            .pricing-card {
+                padding: 30px 20px;
+                margin-bottom: 20px;
+            }
+
+            .price {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+
+            .benefit-card {
+                padding: 20px;
+            }
+
+            .offers-title {
+                font-size: 2rem;
+            }
+
+            .offer-card {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .billing-toggle {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .subscription-header {
+                padding: 50px 0;
+            }
+
+            .subscription-header h1 {
+                font-size: 1.75rem;
+                margin-bottom: 10px;
+            }
+
+            .subscription-header p {
+                font-size: 0.95rem;
+            }
+
+            .subscription-section {
+                padding: 40px 0;
+            }
+
+            .pricing-card {
+                padding: 20px 15px;
+            }
+
+            .plan-name {
+                font-size: 1.25rem;
+            }
+
+            .price {
+                font-size: 2rem;
+            }
+
+            .features-list li {
+                padding: 10px 0;
+                font-size: 0.9rem;
+            }
+
+            .btn-subscribe {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 30px;
+            }
+
+            .benefit-card {
+                padding: 15px;
+            }
+
+            .benefit-icon {
+                font-size: 2rem;
+            }
+
+            .offers-section {
+                padding: 40px 0;
+            }
+
+            .offers-title {
+                font-size: 1.75rem;
+            }
+
+            .offer-card {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .offer-title {
+                font-size: 1.1rem;
+            }
+
+            .faq-section {
+                padding: 40px 0;
+            }
+
+            .accordion-button {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pricing-card,
+        .benefit-card,
+        .offer-card {
+            animation: slideInUp 0.5s ease;
+        }
+
+        .pricing-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .pricing-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .pricing-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-wood sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="bi bi-shop"></i> PetShop
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#productos">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contacto.html">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header de Suscripción -->
+    <section class="subscription-header">
+        <div class="container">
+            <h1><i class="bi bi-star-fill"></i> Planes de Suscripción</h1>
+            <p>Acceso ilimitado a todos nuestros productos y servicios premium</p>
+
+            <!-- Toggle Mensual/Anual -->
+            <div class="billing-toggle">
+                <span class="toggle-label active" id="monthlyLabel">Pago Mensual</span>
+                <div class="toggle-switch" id="billingToggle">
+                    <div class="toggle-slider"></div>
+                </div>
+                <span class="toggle-label" id="annualLabel">
+                    Pago Anual
+                    <span class="savings-badge" id="savingsBadge" style="display: none;">Ahorra 20%</span>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planes de Precios -->
+    <section class="subscription-section">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Plan Básico -->
+                <div class="col-lg-6 col-xl-3">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">
+                            <i class="bi bi-paw-fill"></i> Básico
+                        </h3>
+                        <p class="plan-description">Ideal para mascotas principiantes</p>
+                        <div class="price">
+                            <span id="basicPrice">9,99€</span>
+                        </div>
+                        <div class="price-period">por mes</div>
+
+                        <ul class="features-list">
+                            <li><i class="bi bi-check-circle-fill"></i> Acceso a catálogo de productos</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Descuento 10% en compras</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Newsletter semanal</li>
+                            <li class="disabled"><i class="bi bi-x-circle"></i> Consulta veterinaria</li>
+                            <li class="disabled"><i class="bi bi-x-circle"></i> Envío gratis</li>
+                        </ul>
+
+                        <button class="btn-subscribe">Comenzar Ahora</button>
+                    </div>
+                </div>
+
+                <!-- Plan Pro -->
+                <div class="col-lg-6 col-xl-3">
+                    <div class="pricing-card featured">
+                        <div class="featured-badge">
+                            <i class="bi bi-star-fill"></i> Más Popular
+                        </div>
+                        <h3 class="plan-name">
+                            <i class="bi bi-heart-fill"></i> Pro
+                        </h3>
+                        <p class="plan-description">El más elegido por nuestros clientes</p>
+                        <div class="price">
+                            <span id="proPrice">19,99€</span>
+                        </div>
+                        <div class="price-period">por mes</div>
+
+                        <ul class="features-list">
+                            <li><i class="bi bi-check-circle-fill"></i> Todo del plan Básico</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Descuento 25% en compras</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Envío gratis</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Consulta veterinaria/mes</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Acceso a ofertas exclusivas</li>
+                        </ul>
+
+                        <button class="btn-subscribe">Suscribirse Ahora</button>
+                    </div>
+                </div>
+
+                <!-- Plan Premium -->
+                <div class="col-lg-6 col-xl-3">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">
+                            <i class="bi bi-gem"></i> Premium
+                        </h3>
+                        <p class="plan-description">Experiencia completa de PetShop</p>
+                        <div class="price">
+                            <span id="premiumPrice">34,99€</span>
+                        </div>
+                        <div class="price-period">por mes</div>
+
+                        <ul class="features-list">
+                            <li><i class="bi bi-check-circle-fill"></i> Todo del plan Pro</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Descuento 40% en compras</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Consulta veterinaria ilimitada</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Peluquería gratis/mes</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Prioridad en atención</li>
+                        </ul>
+
+                        <button class="btn-subscribe">Suscribirse Ahora</button>
+                    </div>
+                </div>
+
+                <!-- Plan Empresarial -->
+                <div class="col-lg-6 col-xl-3">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">
+                            <i class="bi bi-building"></i> Empresarial
+                        </h3>
+                        <p class="plan-description">Para negocios y clínicas</p>
+                        <div class="price">
+                            <span>Personalizado</span>
+                        </div>
+                        <div class="price-period">Contacta con nosotros</div>
+
+                        <ul class="features-list">
+                            <li><i class="bi bi-check-circle-fill"></i> Planes personalizados</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Descuentos por volumen</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Soporte dedicado 24/7</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Integración API</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Facturación personalizada</li>
+                        </ul>
+
+                        <button class="btn-subscribe">Solicitar Demo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Beneficios -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="bi bi-gift-fill"></i> Beneficios de tu Suscripción
+            </h2>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-percent"></i>
+                        </div>
+                        <h3>Descuentos Exclusivos</h3>
+                        <p>Aprovecha descuentos de hasta el 40% en todos nuestros productos y servicios</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <h3>Envío Gratis</h3>
+                        <p>Envío sin costo a tu domicilio en pedidos desde el plan Pro</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-stethoscope"></i>
+                        </div>
+                        <h3>Consulta Veterinaria</h3>
+                        <p>Acceso a consultas con veterinarios expertos incluidas en tu plan</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-bell-fill"></i>
+                        </div>
+                        <h3>Notificaciones Prioritarias</h3>
+                        <p>Sé el primero en conocer nuestras ofertas y nuevos productos</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h3>Garantía de Satisfacción</h3>
+                        <p>Cancela cuando quieras sin complicaciones, 100% sin riesgo</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <h3>Acceso a Ofertas</h3>
+                        <p>Ofertas exclusivas solo disponibles para suscriptores premium</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <h3>Comunidad Exclusiva</h3>
+                        <p>Únete a nuestra comunidad de dueños de mascotas comprometidos</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-headset"></i>
+                        </div>
+                        <h3>Soporte Prioritario</h3>
+                        <p>Atención al cliente rápida y eficiente para todos tus problemas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Ofertas Especiales -->
+    <section class="offers-section">
+        <div class="container">
+            <h2 class="offers-title">
+                <i class="bi bi-fire"></i> Ofertas Especiales Limitadas
+            </h2>
+
+            <div class="row g-4">
+                <!-- Oferta 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="offer-card">
+                        <div class="offer-title">
+                            <span>Descuento Bienvenida</span>
+                            <span class="offer-badge">30% OFF</span>
+                        </div>
+                        <p class="offer-description">
+                            Obtén un 30% de descuento en tu primer mes de suscripción. Válido solo para nuevos usuarios.
+                        </p>
+                        <div class="offer-code">
+                            <i class="bi bi-clipboard-check"></i> WELCOME30
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Oferta 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="offer-card">
+                        <div class="offer-title">
+                            <span>Referidos</span>
+                            <span class="offer-badge">15% CADA UNO</span>
+                        </div>
+                        <p class="offer-description">
+                            Invita a un amigo y ambos recibirán 15% de descuento en el mes siguiente.
+                        </p>
+                        <div class="offer-code">
+                            <i class="bi bi-share-fill"></i> REFER15
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Oferta 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="offer-card">
+                        <div class="offer-title">
+                            <span>Anual Especial</span>
+                            <span class="offer-badge">3 MESES GRATIS</span>
+                        </div>
+                        <p class="offer-description">
+                            Paga 9 meses y obtén 3 meses gratis si contratas un plan anual ahora.
+                        </p>
+                        <div class="offer-code">
+                            <i class="bi bi-calendar-check"></i> ANNUAL3MESES
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Oferta 4 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="offer-card">
+                        <div class="offer-title">
+                            <span>Black Friday</span>
+                            <span class="offer-badge">50% OFF</span>
+                        </div>
+                        <p class="offer-description">
+                            Aproveha el 50% de descuento en planes anuales durante esta semana.
+                        </p>
+                        <div class="offer-code">
+                            <i class="bi bi-tag-fill"></i> BLACKFRIDAY50
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Oferta 5 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="offer-card">
+                        <div class="offer-title">
+                            <span>Plan Familiar</span>
+                            <span class="offer-badge">HASTA 5 MASCOTAS</span>
+                        </div>
+                        <p class="offer-description">
+                            Suscripción familiar: gestiona hasta 5 mascotas en una sola cuenta.
+                        </p>
+                        <div class="offer-code">
+                            <i class="bi bi-heart-fill"></i> FAMILY5PETS
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Oferta 6 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="offer-card">
+                        <div class="offer-title">
+                            <span>Prueba Gratis</span>
+                            <span class="offer-badge">14 DÍAS</span>
+                        </div>
+                        <p class="offer-description">
+                            Prueba cualquier plan durante 14 días sin pagar. Sin tarjeta de crédito requerida.
+                        </p>
+                        <div class="offer-code">
+                            <i class="bi bi-arrow-repeat"></i> FREETRIAL14
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="bi bi-question-circle-fill"></i> Preguntas Frecuentes
+            </h2>
+
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="accordion" id="faqAccordion">
+                        <!-- FAQ 1 -->
+                        <div class="accordion-item border-0 mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq1">
+                                    ¿Puedo cancelar mi suscripción en cualquier momento?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Sí, puedes cancelar tu suscripción en cualquier momento sin penalidades. Tu acceso
+                                    continuará hasta el final del período de facturación actual.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 2 -->
+                        <div class="accordion-item border-0 mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq2">
+                                    ¿Hay período de prueba gratuita?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Sí, ofrecemos 14 días de prueba gratuita con acceso completo a todas las
+                                    características. No requiere tarjeta de crédito para comenzar.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 3 -->
+                        <div class="accordion-item border-0 mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq3">
+                                    ¿Cuál es la diferencia entre pago mensual y anual?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    El plan anual ofrece un 20% de descuento en comparación con el pago mensual. Además,
+                                    con algunos códigos especiales, puedes obtener hasta 3 meses gratis.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 4 -->
+                        <div class="accordion-item border-0 mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq4">
+                                    ¿Puedo cambiar de plan en cualquier momento?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Absolutamente. Puedes mejorar o reducir tu plan en cualquier momento. Los cambios se
+                                    reflejarán en tu próxima facturación.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 5 -->
+                        <div class="accordion-item border-0 mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq5">
+                                    ¿Cómo se aplican los códigos de descuento?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Durante el proceso de checkout, encontrarás un campo "Código de Descuento" donde
+                                    puedes ingresarlo. El descuento se aplicará automáticamente a tu factura.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 6 -->
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq6">
+                                    ¿Hay descuentos para organizaciones sin ánimo de lucro?
+                                </button>
+                            </h2>
+                            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Sí, ofrecemos descuentos especiales para refugios de animales y organizaciones sin
+                                    ánimo de lucro. Contacta a nuestro equipo para más información.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-wood text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 PetShop. Todos los derechos reservados.</p>
+            <p class="mb-0">
+                <a href="#" class="text-white text-decoration-none me-3">Política de Privacidad</a> |
+                <a href="#" class="text-white text-decoration-none ms-3">Términos de Servicio</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Toggle entre pago mensual y anual
+        const billingToggle = document.getElementById('billingToggle');
+        const monthlyLabel = document.getElementById('monthlyLabel');
+        const annualLabel = document.getElementById('annualLabel');
+        const savingsBadge = document.getElementById('savingsBadge');
+
+        const basicPrice = document.getElementById('basicPrice');
+        const proPrice = document.getElementById('proPrice');
+        const premiumPrice = document.getElementById('premiumPrice');
+
+        let isAnnual = false;
+
+        const monthlyPrices = {
+            basic: '9,99€',
+            pro: '19,99€',
+            premium: '34,99€'
+        };
+
+        const annualPrices = {
+            basic: '95,88€',
+            pro: '191,88€',
+            premium: '335,88€'
+        };
+
+        billingToggle.addEventListener('click', function () {
+            isAnnual = !isAnnual;
+            billingToggle.classList.toggle('active');
+            monthlyLabel.classList.toggle('active');
+            annualLabel.classList.toggle('active');
+
+            if (isAnnual) {
+                basicPrice.textContent = annualPrices.basic;
+                proPrice.textContent = annualPrices.pro;
+                premiumPrice.textContent = annualPrices.premium;
+                savingsBadge.style.display = 'inline-block';
+            } else {
+                basicPrice.textContent = monthlyPrices.basic;
+                proPrice.textContent = monthlyPrices.pro;
+                premiumPrice.textContent = monthlyPrices.premium;
+                savingsBadge.style.display = 'none';
+            }
+        });
+
+        // Copiar código de descuento
+        const offerCodes = document.querySelectorAll('.offer-code');
+        offerCodes.forEach(code => {
+            code.addEventListener('click', function () {
+                const text = this.textContent.trim().split('\n')[1];
+                navigator.clipboard.writeText(text);
+
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="bi bi-check-circle-fill"></i> ¡Copiado!';
+
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                }, 2000);
+            });
+        });
+
+        // Event listeners para botones de suscripción
+        const subscribeButtons = document.querySelectorAll('.btn-subscribe');
+        subscribeButtons.forEach((button, index) => {
+            button.addEventListener('click', function () {
+                const plans = ['Básico', 'Pro', 'Premium', 'Empresarial'];
+                const plan = plans[index];
+
+                if (plan === 'Empresarial') {
+                    alert('Solicitaremos tu información de contacto para presentarte una demo personalizada.');
+                } else {
+                    alert(`Te redireccionaremos al formulario de pago para el plan ${plan}.`);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
